@@ -1,0 +1,45 @@
+﻿@model ComplementoParcial.Models.DiscosLimitResponse
+@{
+    if (Model.desde == default(DateTime))
+    {
+        ViewBag.Title = "Discos mas vendidos";
+    }
+    else
+    {
+        ViewBag.Title = "Discos mas vendidos desde " + Model.desde + " hasta " + Model.hasta;
+    }
+
+}
+
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm("Index", "Discos", FormMethod.Post))
+{
+    <div style="text-align:right">
+        <input type="date" name="desde" class="form-control" />
+        <input type="date" name="hasta" class="form-control" />
+        <input class="btn" type="submit" value="Filtrar" />
+    </div>
+    <div class="container">
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nombre disco</th>
+                        <th>Cantidad vendida</th>
+                        <th>Monto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.discos)
+                    {
+                        <tr>
+                            <td>@item.Titulo</td>
+                            <td>@item.Cantidad</td>
+                            <td>@item.Monto</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
